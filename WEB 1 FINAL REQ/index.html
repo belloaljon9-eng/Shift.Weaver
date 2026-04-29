@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="ShiftWeaver - A student demo platform for posting micro-shifts and connecting managers with workers." />
+  <title>ShiftWeaver — Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  
+  <!-- Header / Navigation -->
+  <header class="topbar">
+    <div class="brand">ShiftWeaver</div>
+    <nav class="nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="post.html" class="nav-link">Post Shift</a>
+      <a href="manager.html" class="nav-link">Manager Dashboard</a>
+      <a href="worker.html" class="nav-link">Worker App</a>
+      <a href="simulator.html" class="nav-link">Simulator</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="card hero">
+      <div class="hero-content">
+        <h1>Welcome to ShiftWeaver</h1>
+        <p class="subtitle">A modern platform for posting micro-shifts and connecting with available workers in real-time.</p>
+        <p class="description muted">This is a student demo project exploring supply/demand matching, response latency, and fair shift allocation.</p>
+        
+        <div class="action-group">
+          <a href="post.html" class="btn btn-primary">Post a Shift</a>
+          <a href="simulator.html" class="btn btn-secondary">Explore Simulator</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="card">
+      <h2>Key Features</h2>
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Post Shifts</h3>
+          <p class="small muted">Managers can quickly post micro-shifts (1–6 hours) with flexible pay rates and skill requirements.</p>
+          <a href="post.html" class="link-button">Post a Shift →</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Worker App</h3>
+          <p class="small muted">Workers receive real-time offers, easily accept or decline assignments, and manage their schedule.</p>
+          <a href="worker.html" class="link-button">Open Worker App →</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3>Simulator</h3>
+          <p class="small muted">Explore how supply/demand, response latency, and matching algorithms impact fairness and efficiency.</p>
+          <a href="simulator.html" class="link-button">Open Simulator →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="card">
+      <h2>Platform Metrics</h2>
+      <div class="grid-3">
+        <div class="stat-box">
+          <div class="stat-value" id="statShifts">0</div>
+          <div class="stat-label">Open Shifts</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statWorkers">0</div>
+          <div class="stat-label">Active Workers</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statMatches">0</div>
+          <div class="stat-label">Matches Today</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Open Shifts Section -->
+    <section class="card">
+      <div class="section-header">
+        <h2>Open Shifts</h2>
+        <a href="post.html" class="link-text">Post New Shift →</a>
+      </div>
+      <div id="shiftList" class="shift-list">
+        <div class="empty-state">
+          <p class="small muted">Loading open shifts…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Activity Section -->
+    <section class="card">
+      <div class="section-header">
+        <h2>Recent Activity</h2>
+        <a href="manager.html" class="link-text">View All →</a>
+      </div>
+      <div id="activity" class="activity-feed">
+        <div class="empty-state">
+          <p class="small muted">No activity yet. Start by posting a shift!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="card cta-section">
+      <h2>Ready to Get Started?</h2>
+      <p>Choose your role and explore ShiftWeaver today:</p>
+      <div class="cta-buttons">
+        <a href="post.html" class="btn btn-primary">I'm a Manager</a>
+        <a href="worker.html" class="btn btn-secondary">I'm a Worker</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 ShiftWeaver. A student demo project.</p>
+      <nav class="footer-nav">
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script>
+    window.SW_PAGE = 'home';
+    initShiftWeaver();
+  </script>
+  <!-- Add this script to all HTML files for mobile menu functionality -->
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+      });
+
+      // Close menu when clicking a nav link
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = nav.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        
+        if (!isClickInsideNav && !isClickOnToggle && nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="ShiftWeaver - Post a micro-shift and find available workers quickly." />
+  <title>ShiftWeaver — Post Shift</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  
+  <!-- Header / Navigation -->
+  <header class="topbar">
+    <div class="brand">ShiftWeaver</div>
+    <nav class="nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="post.html" class="nav-link active">Post Shift</a>
+      <a href="manager.html" class="nav-link">Manager Dashboard</a>
+      <a href="worker.html" class="nav-link">Worker App</a>
+      <a href="simulator.html" class="nav-link">Simulator</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container-sm">
+    <!-- Form Section -->
+    <section class="card">
+      <div class="form-header">
+        <div>
+          <h1>Post a Micro-Shift</h1>
+          <p class="subtitle">Fill in the details below to post a quick shift and connect with available workers.</p>
+        </div>
+      </div>
+
+      <form id="postForm" class="form-container">
+        <!-- Business Information -->
+        <div class="form-section">
+          <h3>Business Information</h3>
+          
+          <div class="form-group">
+            <label for="business">Business Name</label>
+            <input 
+              id="business" 
+              type="text"
+              placeholder="e.g., Corner Cafe" 
+              required 
+            />
+            <p class="form-hint">The name of your business or venue</p>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input 
+              id="location" 
+              type="text"
+              placeholder="Street address (demo only)" 
+            />
+            <p class="form-hint">Where the shift will take place</p>
+          </div>
+        </div>
+
+        <!-- Shift Details -->
+        <div class="form-section">
+          <h3>Shift Details</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="start">Start Time</label>
+              <input id="start" type="datetime-local" required />
+              <p class="form-hint">When the shift begins</p>
+            </div>
+
+            <div class="form-group">
+              <label for="end">End Time</label>
+              <input id="end" type="datetime-local" required />
+              <p class="form-hint">When the shift ends</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="wage">Wage ($/hour)</label>
+            <div class="input-with-addon">
+              <input 
+                id="wage" 
+                type="number" 
+                min="5" 
+                step="0.50"
+                value="15" 
+                required
+              />
+              <span class="input-addon">/hr</span>
+            </div>
+            <p class="form-hint">Hourly wage offered for this shift</p>
+          </div>
+        </div>
+
+        <!-- Requirements -->
+        <div class="form-section">
+          <h3>Worker Requirements</h3>
+          
+          <div class="form-group">
+            <label for="skills">Required Skills</label>
+            <input 
+              id="skills" 
+              type="text"
+              placeholder="e.g., barista, cashier, food-prep" 
+            />
+            <p class="form-hint">Comma-separated list of required skills (optional)</p>
+          </div>
+        </div>
+
+        <!-- Demo Settings -->
+        <div class="form-section demo-section">
+          <h3>Demo Settings</h3>
+          <p class="form-hint">These settings are for demonstration purposes only.</p>
+          
+          <div class="form-group">
+            <label for="fallback">Auto-fill after (seconds)</label>
+            <input 
+              id="fallback" 
+              type="number" 
+              min="5" 
+              value="10" 
+              required
+            />
+            <p class="form-hint">Auto-fill the shift with a worker after this duration</p>
+          </div>
+        </div>
+
+        <!-- Dynamic Pricing -->
+        <div class="pricing-box">
+          <h3>Dynamic Pricing Suggestion</h3>
+          <div class="pricing-content">
+            <p class="pricing-label">Suggested wage:</p>
+            <p class="pricing-value" id="dynPrice">—</p>
+            <p class="form-hint">Based on current demand and worker availability</p>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <div class="action-info">
+            <p class="small muted">Review all details before posting.</p>
+          </div>
+          <div class="action-buttons">
+            <button type="submit" class="btn btn-primary">Post Shift</button>
+            <a href="index.html" class="btn btn-secondary">Cancel</a>
+          </div>
+        </div>
+
+        <!-- Result Message -->
+        <div id="postResult" class="form-result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Success State (Hidden) -->
+    <section id="successCard" class="card success-card" style="display:none">
+      <div class="success-content">
+        <div class="success-icon">✓</div>
+        <h2>Shift Posted Successfully!</h2>
+        <p class="muted">Your shift has been posted and is now visible to available workers.</p>
+        <div class="success-actions">
+          <a href="manager.html" class="btn btn-primary">View on Dashboard</a>
+          <a href="post.html" class="btn btn-secondary">Post Another Shift</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 ShiftWeaver. Post your shifts instantly.</p>
+      <nav class="footer-nav">
+        <a href="#help">Help</a>
+        <a href="#guidelines">Guidelines</a>
+        <a href="#support">Support</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    window.SW_PAGE = 'post';
+    initShiftWeaver();
+  </script>
+  <!-- Add this script to all HTML files for mobile menu functionality -->
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+      });
+
+      // Close menu when clicking a nav link
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = nav.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        
+        if (!isClickInsideNav && !isClickOnToggle && nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+/* ===== Table Styles ===== */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.shifts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.shifts-table thead {
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.shifts-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.shifts-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.shifts-table tbody tr {
+  transition: var(--transition);
+}
+
+.shifts-table tbody tr:hover {
+  background: var(--primary-light);
+}
+
+.shifts-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.empty-cell {
+  text-align: center;
+  padding: 32px 16px !important;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-open {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.status-filled {
+  background: var(--secondary-light);
+  color: var(--secondary);
+}
+
+.status-closed {
+  background: var(--bg-secondary);
+  color: var(--text-light);
+}
+
+/* ===== Timeline / Activity Log ===== */
+.activity-timeline {
+  margin-top: 16px;
+}
+
+.timeline-empty {
+  padding: 32px 0;
+  text-align: center;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bg-secondary);
+  transition: var(--transition);
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+}
+
+.timeline-item:hover {
+  background: var(--bg-secondary);
+  padding: 12px;
+  margin: 0 -12px;
+  border-radius: var(--radius);
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.timeline-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.timeline-content p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.timeline-time {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* ===== Stats Box Enhanced ===== */
+.stat-box {
+  padding: 24px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  transition: var(--transition);
+  border: 1px solid var(--bg-secondary);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-box:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+.stat-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.stat-description {
+  font-size: 12px;
+  color: var(--text-light);
+  margin: 0;
+}
+
+/* ===== Action Grid ===== */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.action-card {
+  padding: 20px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  border: 1px solid var(--bg-secondary);
+  transition: var(--transition);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.action-card:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.action-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.action-card h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.action-card p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+/* ===== Responsive Tables ===== */
+@media (max-width: 768px) {
+  .shifts-table {
+    font-size: 13px;
+  }
+
+  .shifts-table th,
+  .shifts-table td {
+    padding: 10px 12px;
+  }
+
+  .action-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .shifts-table {
+    font-size: 12px;
+  }
+
+  .shifts-table th,
+  .shifts-table td {
+    padding: 8px 10px;
+  }
+
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-box {
+    padding: 16px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+  }
+}

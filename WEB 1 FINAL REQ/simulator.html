@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShiftWeaver — Offer Flow Simulator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  
+  <header class="topbar">
+    <div class="brand">ShiftWeaver</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="post.html">Post Shift</a>
+      <a href="manager.html">Manager Dashboard</a>
+      <a href="worker.html">Worker App</a>
+      <a href="simulator.html">Offer Flow Simulator</a>
+    </nav>
+  </header>
+
+  <main class="container-sm">
+    <section class="card">
+      <h2>Offer Flow Simulator (Demo)</h2>
+      <p class="muted">Adjust sliders and press Run to simulate many shift posts. See fill rate, average time-to-fill, and fairness.</p>
+
+      <label>Number of workers: <span id="simWorkersVal">20</span>
+        <input id="simWorkers" type="range" min="3" max="80" value="20" />
+      </label>
+
+      <label>Response latency (avg seconds): <span id="simLatencyVal">6</span>
+        <input id="simLatency" type="range" min="1" max="20" value="6" />
+      </label>
+
+      <label>Base wage ($/hr): <span id="simWageVal">15</span>
+        <input id="simWage" type="range" min="8" max="40" value="15" />
+      </label>
+
+      <label>Supply/Demand (workers per shift): <span id="simSupplyVal">3</span>
+        <input id="simSupply" type="range" min="1" max="10" value="3" />
+      </label>
+
+      <div style="margin-top:8px">
+        <label><input id="fairMode" type="checkbox" /> Fairness mode (prefers underworked workers)</label>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button id="runSim" class="btn">Run</button>
+        <button id="clearSim" class="btn ghost">Clear</button>
+      </div>
+
+      <div id="simResult" style="margin-top:14px"></div>
+      <div id="simBars" style="margin-top:12px"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    window.SW_PAGE = 'simulator';
+    initShiftWeaver();
+  </script>
+  <!-- Add this script to all HTML files for mobile menu functionality -->
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+      });
+
+      // Close menu when clicking a nav link
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = nav.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        
+        if (!isClickInsideNav && !isClickOnToggle && nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>

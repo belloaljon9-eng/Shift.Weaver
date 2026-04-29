@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShiftWeaver — Worker App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">ShiftWeaver</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="post.html">Post Shift</a>
+      <a href="manager.html">Manager Dashboard</a>
+      <a href="worker.html">Worker App</a>
+      <a href="simulator.html">Offer Flow Simulator</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Worker Offers</h2>
+      <p class="muted">Accept offers quickly — in this demo offers use localStorage. Accepting adds to your accepted list.</p>
+      <div class="row" style="margin-top:8px">
+        <div>
+          <label>Worker name <input id="workerName" placeholder="Jane Doe" /></label>
+        </div>
+        <div>
+          <label>Skills <input id="workerSkills" placeholder="barista, cashier" /></label>
+        </div>
+      </div>
+
+      <div style="margin-top:10px">
+        <button id="saveWorker" class="btn">Save Worker</button>
+        <button id="clearWorker" class="btn ghost">Reset</button>
+      </div>
+
+      <h3 style="margin-top:12px">Incoming offers</h3>
+      <div id="offers" class="list small muted">No offers yet.</div>
+
+      <h3 style="margin-top:12px">Accepted</h3>
+      <div id="accepted" class="list small muted">No accepted shifts yet.</div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    window.SW_PAGE = 'worker';
+    initShiftWeaver();
+  </script>
+  <!-- Add this script to all HTML files for mobile menu functionality -->
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+      });
+
+      // Close menu when clicking a nav link
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = nav.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        
+        if (!isClickInsideNav && !isClickOnToggle && nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>

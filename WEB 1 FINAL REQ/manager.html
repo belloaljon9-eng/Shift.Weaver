@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="ShiftWeaver Manager Dashboard - Monitor open shifts, fill rates, and activity logs." />
+  <title>ShiftWeaver — Manager Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  
+  <!-- Header / Navigation -->
+  <header class="topbar">
+    <div class="brand">ShiftWeaver</div>
+    <nav class="nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="post.html" class="nav-link">Post Shift</a>
+      <a href="manager.html" class="nav-link active">Manager Dashboard</a>
+      <a href="worker.html" class="nav-link">Worker App</a>
+      <a href="simulator.html" class="nav-link">Simulator</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Dashboard Header -->
+    <section class="card hero">
+      <div class="hero-content">
+        <h1>Manager Dashboard</h1>
+        <p class="subtitle">Monitor your shifts, track fill rates, and manage worker assignments in real-time.</p>
+        <a href="post.html" class="btn btn-primary">+ Post New Shift</a>
+      </div>
+    </section>
+
+    <!-- Key Performance Indicators -->
+    <section class="card">
+      <h2>Performance Metrics</h2>
+      <div class="grid-3">
+        <div class="stat-box">
+          <div class="stat-icon">📋</div>
+          <div class="stat-value" id="kpiOpen">0</div>
+          <div class="stat-label">Open Shifts</div>
+          <p class="stat-description">Waiting to be filled</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon">✅</div>
+          <div class="stat-value" id="kpiFill">—</div>
+          <div class="stat-label">Fill Rate</div>
+          <p class="stat-description">Percentage filled</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-value" id="kpiAvgTime">—</div>
+          <div class="stat-label">Avg Time to Fill</div>
+          <p class="stat-description">Minutes</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shifts Management -->
+    <section class="card">
+      <div class="section-header">
+        <div>
+          <h2>Recent Shifts</h2>
+          <p class="small muted">Your posted shifts and their status</p>
+        </div>
+        <a href="post.html" class="btn btn-secondary">Post Shift</a>
+      </div>
+      
+      <div class="table-wrapper">
+        <table class="shifts-table">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Date & Time</th>
+              <th>Duration</th>
+              <th>Pay</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="mgrShiftList">
+            <tr>
+              <td colspan="6" class="empty-cell">
+                <p class="small muted">Loading shifts…</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Activity Log -->
+    <section class="card">
+      <div class="section-header">
+        <div>
+          <h2>Activity Log</h2>
+          <p class="small muted">Recent events and worker interactions</p>
+        </div>
+        <button class="link-text">View All →</button>
+      </div>
+      
+      <div class="activity-timeline">
+        <div id="activityLog" class="timeline-empty">
+          <p class="small muted">No activity yet. Post a shift to get started!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="card">
+      <h2>Quick Actions</h2>
+      <div class="action-grid">
+        <a href="post.html" class="action-card">
+          <div class="action-icon">➕</div>
+          <h3>Post a Shift</h3>
+          <p class="small muted">Create a new micro-shift</p>
+        </a>
+        <a href="#analytics" class="action-card">
+          <div class="action-icon">📊</div>
+          <h3>View Analytics</h3>
+          <p class="small muted">Detailed performance data</p>
+        </a>
+        <a href="#workers" class="action-card">
+          <div class="action-icon">👥</div>
+          <h3>Manage Workers</h3>
+          <p class="small muted">View and manage assignments</p>
+        </a>
+        <a href="simulator.html" class="action-card">
+          <div class="action-icon">⚙️</div>
+          <h3>Run Simulator</h3>
+          <p class="small muted">Test matching algorithms</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 ShiftWeaver. Manager Dashboard.</p>
+      <nav class="footer-nav">
+        <a href="#help">Help</a>
+        <a href="#settings">Settings</a>
+        <a href="#logout">Logout</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    window.SW_PAGE = 'manager';
+    initShiftWeaver();
+  </script>
+  <!-- Add this script to all HTML files for mobile menu functionality -->
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+      });
+
+      // Close menu when clicking a nav link
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = nav.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        
+        if (!isClickInsideNav && !isClickOnToggle && nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "workers": [
+    { "id": "w1", "name": "Alex", "skills": ["barista","cashier"], "rating": 4.8, "assigned": 0 },
+    { "id": "w2", "name": "Sam", "skills": ["cashier"], "rating": 4.2, "assigned": 0 },
+    { "id": "w3", "name": "Priya", "skills": ["barista","stocking"], "rating": 4.9, "assigned": 0 },
+    { "id": "w4", "name": "Jordan", "skills": ["stocking"], "rating": 4.0, "assigned": 0 }
+  ],
+  "shifts": [
+    { "id": "s1", "business": "Corner Cafe", "location": "10 Main St", "start": "2026-04-16T10:00:00.000Z", "end": "2026-04-16T14:00:00.000Z", "wage": 15, "skills": ["barista"], "status": "open", "posted_at": "2026-04-15T09:00:00.000Z", "fallback_seconds": 12 }
+  ]
+}
